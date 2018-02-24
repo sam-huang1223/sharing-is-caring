@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Airplane</title>
+        <link href="style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+    </head>
+    <body>
+
+        <div class="planeContain"><img id="plane" src="plane.png"/></div>
+            <div class="finished"><p>SAVED</p></div>
+            <div class="bar-outline">
+                <div class="bar">
+                </div>
+            </div>
+           <script>
+                // var slider = document.getElementById("hi");
+                var finished = document.querySelector('.finished');
+                var plane = document.querySelector('#plane');
+
+                var change = true;
+                var list = 3600; //total CO2 saved in kg -> to test
+                var bar = document.querySelector('.bar');
+                var typicalFlightCO2 = 3600; //average flight time * average CO2 admission per hr = 3600
+                var changeBar = list/typicalFlightCO2 //percentage that the bar height increases by
+                console.log(changeBar);
+
+                //IIFE
+                var progress = (function(co2Level) {
+                    if(change) {
+                        bar.style.height = (co2Level * 280) + "px";
+                        console.log('clicked');
+                        if(bar.style.height == "280px") {
+                            finished.style = "box-shadow: 0px 0px 15px 1px rgba(197,250,239,1)";
+                            finished.style.background = "rgb(218, 236, 233)";
+                            plane.style.opacity = "1";
+                        }
+                        if(bar.style.height >= "280px") {
+                            change = false;
+                    }
+
+                    }
+                })(changeBar);
+
+
+            </script>
+    </body>
+</html>
