@@ -6,6 +6,7 @@ class Area:
     def __init__(self, name, vertices, initial_score):
         self.name = name
         self.vertices = vertices[:-1]
+        self.centre = self.get_center()
         self.score = initial_score
 
     def __contains__(self, item):
@@ -13,6 +14,10 @@ class Area:
         point = Point(*item)
         polygon = Polygon(self.vertices)
         return polygon.contains(point)
+
+    def get_center(self):
+        polygon = Polygon(self.vertices)
+        return polygon.centroid.x, polygon.centroid.y
 
 
 class Display:

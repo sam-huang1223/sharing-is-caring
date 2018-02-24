@@ -1,7 +1,6 @@
 import numpy as np
 from map import Area, Display
 import geojson
-import pandas as pd
 
 start_xs = np.array([-73.933250])
 start_ys = np.array([40.690121])
@@ -22,5 +21,10 @@ areas = [Area(key, value, INITIAL_CARS) for key, value in area_coords.items()]
 
 disp = Display(areas, start_xs, start_ys, end_xs, end_ys, co2_savings, profit)
 output = disp.json_output
+
 print(output)
+
+print(disp.areas[0].centre)
+
+
 
