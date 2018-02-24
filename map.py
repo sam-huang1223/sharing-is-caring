@@ -5,7 +5,7 @@ from shapely.geometry.polygon import Polygon
 class Area:
     def __init__(self, name, vertices, initial_score):
         self.name = name
-        self.vertices = vertices
+        self.vertices = vertices[:-1]
         self.score = initial_score
 
     def __contains__(self, item):
@@ -17,7 +17,7 @@ class Area:
 
 class Display:
     def __init__(self, areas, start_xs, start_ys, end_xs, end_ys, co2, profit):
-        self.areas = areas
+        self.areas = {area.name: area for area in areas}
         self.start_xs = start_xs
         self.start_ys = start_ys
         self.end_xs = end_xs
@@ -26,8 +26,9 @@ class Display:
         self.profit = profit
 
         #self.assign_initial_distribution(initial_distribution_df)
+        print(self.get_adjacent(self.areas[0]))
 
-        self.json_output = {area.name: [area.score] for area in self.areas}
+        self.json_output = {area.name: [area.score] for area in self.areas.values()}
 
         for n in range(len(self.start_xs)):
             self.step(n)
@@ -36,7 +37,7 @@ class Display:
 
     def step(self, n):
         other_found = False
-        for area in self.areas:
+        for area in self.areas.values():
             start_point = (self.start_xs[n], self.start_ys[n])
             end_point = (self.end_xs[n], self.end_ys[n])
             if start_point in area:
@@ -56,8 +57,13 @@ class Display:
                 else:
                     other_found = True
 
-        for area in self.areas:
+        for area in self.areas.values():
             self.json_output[area.name].append(area.score)
+
+    def get_adjacent(self, target_area):
+        return set([area.name for vertex in target_area.vertices for area in self.areas.values() if vertex in area.vertices and area != target_area])
+
+
 
 
 '''

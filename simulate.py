@@ -12,7 +12,7 @@ profit = np.array([10])
 
 assert len(start_xs) == len(start_ys) == len(end_xs) == len(end_ys) == len(co2_savings) == len(profit), "arrays of unequal size"
 
-with open("fire_companies.geojson", 'r') as f:
+with open("data/fire_companies.geojson", 'r') as f:
     raw = geojson.load(f)
 
 INITIAL_CARS = 100
